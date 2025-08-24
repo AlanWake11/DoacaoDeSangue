@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+
+<html lang="pt-br">
+<head>
+<meta charset="utf-8"/>
+<title>Check-in de Doação</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"/>
+<style>
+    body {
+      background-color: #f8f9fa;
+    }
+    .navbar {
+      background-color: #ffffff;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    .navbar-brand, .nav-link {
+      color: black !important;
+    }
+    .mensagem {
+      display: none;
+      padding: 10px;
+      border-radius: 5px;
+      margin-top: 20px;
+      font-weight: bold;
+    }
+    .mensagem.erro {
+      background-color: #ffcdd2;
+      color: #b71c1c;
+    }
+    .mensagem.sucesso {
+      background-color: #c8e6c9;
+      color: #1b5e20;
+    }
+    .fade {
+      animation: fadeEffect 0.7s;
+    }
+    @keyframes fadeEffect {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+  </style>
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark">
+<div class="container-fluid">  
+  <a class="navbar-brand d-flex align-items-center gap-2" href="index.html" style="margin-right: 60%;">
+  <img alt="Logo " class="logo" src="images/logo_guia_mais_sangue.png" style="width: 100px;"/></a>
+<div class="navbar-brand" id="navbarNav">
+  <ul class="navbar-nav">
+    <li class="nav-item"><a class="nav-link" href="index.html">Início</a></li>
+    <li class="nav-item"><a class="nav-link" href="cadastrar.html">Cadastrar</a></li>
+    <li class="nav-item"><a class="nav-link" href="hospitais.html">Hospitais</a></li>
+    <li class="nav-item"><a class="nav-link active" href="checkin.html">Check-in de Doação</a></li>
+  </ul>
+</div>
+</div>
+</nav>
+
+<div class="container mt-5">
+<div class="card bg-white align-items-center text-center" style="padding-bottom: 2%; padding-top: 2%;">
+<h2 class="mb-4 text-center text-danger">Check-in de Doação</h2>
+<form onsubmit="return validarCheckin()">
+
+<div class="form-check mb-3">
+<input class="form-check-input" id="doc" type="checkbox"/>
+<label class="form-check-label" for="doc"> <strong>Apresentar documento oficial com foto</strong></label>
+</div>
+<div class="form-check mb-3">
+<input class="form-check-input" id="idade" type="checkbox"/>
+<label class="form-check-label" for="idade"><strong>Idade entre 16 e 69 anos</strong></label>
+</div>
+<div class="form-check mb-3">
+<input class="form-check-input" id="peso" type="checkbox"/>
+<label class="form-check-label" for="peso"><strong>Peso mínimo de 50 kg</strong></label>
+</div>
+<div class="form-check mb-3">
+<input class="form-check-input" id="saude" type="checkbox"/>
+<label class="form-check-label" for="saude"><strong>Estar bem de saúde</strong></label>
+</div>  
+<div class="form-check mb-3">
+<input class="form-check-input" id="alimentado" type="checkbox"/>
+<label class="form-check-label" for="alimentado"><strong>Estar alimentado</strong></label>
+</div>
+<div class="form-check mb-3">
+<input class="form-check-input" id="alcool" type="checkbox"/>
+<label class="form-check-label" for="alcool"><strong>Não ter ingerido álcool nas últimas 12h</strong></label>
+</div>
+<div class="form-check mb-3">
+  <input class="form-check-input" id="tatuagem" type="checkbox"/>
+  <label class="form-check-label" for="tatuagem"><strong>Se houver feito Tatuagem/piercing em local não regulamentado aguardar 6 meses</strong></label>
+</div>
+<div class="form-check mb-3">
+  <input class="form-check-input" id="gestante" type="checkbox"/>
+  <label class="form-check-label" for="gestante"><strong>Não Estar gestante (aguardar 90 dias após o parto e 180 para cesárea).</strong></label>
+</div>
+
+<div class="form-check mb-3">
+  <input class="form-check-input" id="ciurgia" type="checkbox"/>
+  <label class="form-check-label" for="ciurgia"><strong>Se estiver operado de uma cirurgia pequena (ex.: dental) aguardar 24 horas.</strong></label>
+</div>
+<div class="form-check mb-3">
+  <input class="form-check-input" id="ciurgia2" type="checkbox"/>
+  <label class="form-check-label" for="ciurgia2"><strong>Se estiver operado de uma cirurgia grande (ex.: apêndice) aguardar 6 a 12 meses</strong></label>
+</div>
+<div class="form-check mb-3">
+  <input class="form-check-input" id="covid" type="checkbox"/>
+  <label class="form-check-label" for="covid"><strong>Vacina contra COVID-19 ou gripe: aguardar 48 horas após a dose</strong></label>
+</div>
+<div class="form-check mb-3">
+  <input class="form-check-input" id="hepatite" type="checkbox"/>
+  <label class="form-check-label" for="hepatite"><strong>Vacina contra hepatite B ou rubéola: aguardar 48 horas a 4 semanas (varia por tipo)</strong></label>
+</div>
+<div class="form-check mb-3">
+  <input class="form-check-input" id="antibióticos" type="checkbox"/>
+  <label class="form-check-label" for="antibióticos"><strong>Uso de antibióticos: aguardar 7 dias após o término.</strong></label>
+</div>
+<div class="form-check mb-3">
+  <input class="form-check-input" id="relacoes" type="checkbox"/>
+  <label class="form-check-label" for="relacoes"><strong>Comportamento sexual de risco (ex.: parceiros múltiplos sem proteção): aguardar 12 meses.
+  </strong></label>
+</div>
+<div class="form-check mb-3">
+  <input class="form-check-input" id="viagem" type="checkbox"/>
+  <label class="form-check-label" for="viagem"><strong>Viagem para áreas de risco de malária (ex.: Amazônia): aguardar 12 meses após retorno
+  </strong></label>
+</div>
+<button class="btn btn-danger" id="checkinBtn" type="button">Enviar Check-in</button>
+</form>
+<div class="mensagem" id="mensagem" style="display: none; position: relative; padding-right: 30px;">
+<button onclick="this.parentElement.style.display='none';" style="position: absolute; top: 5px; right: 10px; border: none; background: none; font-size: 20px; cursor: pointer;">×</button>
+</div>
+</div>
+</div> 
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  document.getElementById("checkinBtn").addEventListener("click", function (e) {
+    e.preventDefault();
+
+    const requisitos = {
+      doc: "É necessário apresentar um documento oficial com foto para garantir sua identificação.",
+      idade: "A idade entre 16 e 69 anos é exigida por segurança e normas de saúde.",
+      peso: "O peso mínimo é importante para garantir a segurança do doador durante o processo.",
+      saude: "Estar saudável evita riscos tanto para o doador quanto para quem recebe o sangue.",
+      alimentado: "Estar alimentado ajuda a evitar mal-estar após a doação.",
+      alcool: "Evitar álcool é fundamental para garantir a qualidade do sangue doado.",
+      hepatite: "aguardar 48 horas e 4 semanas ",
+      gestante: "nesse periodo de gravidez nao pode ser doador",
+      tatuagem: "tatuagem recentes nao pode realizar doação",
+      ciurgia: "cirugia pequenas recentes nao recomendado doação",
+      ciurgia2: "cirugias de grandes portes esperar ate a recuperação completa",
+      covid: "esperar as 48 horas para recuperação da vacina",
+      relacoes: "esperar 12 meses apos a ultima relação sem protenção",
+      antibióticos: "esperar 7 dias",
+      viagem: "aguardar 12 meses apos o retorno"
+
+    };
+
+    let mensagensErro = [];
+    for (let id in requisitos) {
+      if (!document.getElementById(id).checked) {
+        mensagensErro.push("• " + requisitos[id]);
+      }
+    }
+
+    const divMensagem = document.getElementById("mensagem");
+    divMensagem.className = "mensagem"; // Resetar classe
+
+    if (mensagensErro.length > 0) {
+      divMensagem.classList.add("erro");
+      divMensagem.innerHTML = '<button onclick="this.parentElement.style.display=\'none\';" style="position: absolute; top: 5px; right: 10px; border: none; background: none; font-size: 20px; cursor: pointer;">×</button>' +
+        "<strong>Antes de continuar, verifique:</strong><br>" + mensagensErro.join("<br>");
+    } else {
+      divMensagem.classList.add("sucesso");
+      divMensagem.innerHTML = '<button onclick="this.parentElement.style.display=\'none\';" style="position: absolute; top: 5px; right: 10px; border: none; background: none; font-size: 20px; cursor: pointer;">×</button>' +
+        "Check-in realizado com sucesso!";
+      setTimeout(() => { window.location.href = "hospitais.html"; }, 1000);
+      return false;
+    }
+
+    divMensagem.style.display = "block";
+  });
+});
+</script>
+<button onclick="document.location='index.html'" style="display: block; margin: 120px auto 30px auto; padding: 10px 20px; font-size: 16px; background-color: #f44336; color: white; border: none; border-radius: 5px; cursor: pointer;"><span>🩸 </span>Voltar para o inicio</button>
+
+</body>
+</html>
