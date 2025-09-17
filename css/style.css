@@ -1,0 +1,91 @@
+
+body {
+  background-image: url('../img/fundo-doacao.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-attachment: fixed;
+}
+
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f4f6f8;
+    margin: 0;
+    padding: 0;
+    color: #333;
+}
+
+header, footer {
+    background-color: #ffffff; color: #b71c1c;
+    color: #b71c1c;
+    padding: 1.2rem 0;
+    text-align: center;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+main.container {
+    background-color: #b71c1c;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    padding: 2rem;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    max-width: 800px;
+}
+
+img.logo {
+    max-height: 80px;
+    width: auto;
+    margin-bottom: 0.5rem;
+}
+
+h1, h2, h3 {
+    color: #b71c1c;
+    font-weight: 600;
+}
+
+.btn {
+    border-radius: 30px;
+    padding: 0.6rem 1.2rem;
+}
+
+.btn-primary {
+    background-color: #1565c0;
+    border-color: #1565c0;
+}
+
+.btn-danger {
+    background-color: #c62828;
+    border-color: #c62828;
+}
+
+.btn-success {
+    background-color: #2e7d32;
+    border-color: #2e7d32;
+}
+
+.btn:hover {
+    opacity: 0.9;
+}
+
+footer {
+    font-size: 0.9rem;
+}
+
+.alert {
+    margin-top: 1rem;
+    border-radius: 8px;
+}
+
+form .form-label {
+    font-weight: 500;
+}
+
+input, select {
+    border-radius: 8px !important;
+}
+
+#mensagem-erro[aria-live] {
+    margin-top: 1rem;
+}

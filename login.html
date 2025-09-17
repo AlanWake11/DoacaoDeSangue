@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <meta charset="utf-8" />
+  <title>Login - Guia + Sangue</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <style>
+    body {
+      background-color: #f8f9fa;
+    }
+
+    .card {
+      max-width: 400px;
+      margin: auto;
+      padding: 2rem;
+      border-radius: 1rem;
+      box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+    }
+
+    #msg {
+      display: none;
+      margin-bottom: 1rem;
+    }
+
+    .fade-in {
+      animation: fadeIn 0.6s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(-10px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container mt-5">
+    <div class="card bg-white">
+      <h2 class="text-center text-danger mb-4">Login</h2>
+      <div class="alert text-center fade-in" id="msg"></div>
+      <form id="loginForm">
+        <div class="mb-3">
+          <label>Email</label>
+          <input class="form-control" id="email" type="email" required/>
+        </div>
+        <div class="mb-3">
+          <label>Senha</label>
+          <input class="form-control" id="senha" type="password" required/>
+        </div>
+        <button class="btn btn-danger w-100">Entrar</button>
+        <p class="text-center mt-3">Não tem conta? <a href="cadastrar.html">Cadastre-se</a></p>
+      </form>
+      <p id="mensagem"></p>
+    </div>
+  </div>
+  <div class="navbar-expand-lg">
+    <div class="container-fluid">
+      <button onclick="document.location='index.html'"
+      style="display: block; margin: 120px auto 30px auto; padding: 10px 20px; font-size: 16px; background-color: #f44336; color: white; border: none; border-radius: 5px; cursor: pointer;"><span>🩸
+        </span>Voltar para o inicio</button>
+    </div>
+  </div>
+
+  <!-- Removido o script type="module" src="auth.js" que causava loop -->
+
+  <script>
+    const SUPABASE_URL = "https://zyyrmedbihwyxmhgudvz.supabase.co";
+    const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inp5eXJtZWRiaWh3eXhtaGd1ZHZ6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTU5ODYxMjgsImV4cCI6MjA3MTU2MjEyOH0.RZnBj4wjNbE3BsX15HW_hQZPncJp21Ns_3S29proWnA";
+    const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+    // Login
+    document.getElementById("loginForm").addEventListener("submit", async (e) => {
+      e.preventDefault();
+
+      const email = document.getElementById("email").value;
+      const senha = document.getElementById("senha").value;
+
+      // 1️⃣ Login com Auth
+      const { data, error } = await supabase.auth.signInWithPassword({
+        email: email,
+        password: senha
+      });
+
+      if (error) {
+        document.getElementById("mensagem").innerText = "❌ Email ou senha incorretos!";
+        return;
+      }
+
+      // 2️⃣ Busca dados extras na tabela usuarios
+      const { data: usuario, error: usuarioError } = await supabase
+        .from("usuarios")
+        .select("*")
+        .eq("id", data.user.id)
+        .single();
+
+      if (usuarioError) {
+        document.getElementById("mensagem").innerText = "❌ Erro ao buscar dados do usuário!";
+      } else {
+        document.getElementById("mensagem").innerText = `✅ Bem-vindo, ${usuario.nome}!`;
+        console.log("Dados completos do usuário:", usuario);
+        setTimeout(() => { window.location.href = "usuario.html"; }, 1000);
+      }
+    });
+  </script>
+</body>
+</html>

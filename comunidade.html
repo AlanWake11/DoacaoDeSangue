@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Comunidade - Doação de Sangue</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body {
+      font-family: "Segoe UI", Arial, sans-serif;
+      background: #fafafa;
+      margin: 0;
+      color: #222;
+      /* Adiciona espaço no final para não esconder o último post */
+      padding-bottom: 250px;
+    }
+
+    #comunidade {
+      max-width: 700px;
+      margin: 40px auto 0 auto;
+      padding: 24px;
+      border-radius: 12px;
+    }
+
+    #comunidade h1 {
+      color: #f44336;
+      font-size: 2.2rem;
+      margin-bottom: 24px;
+      text-align: center;
+    }
+
+    /* Estilos para a caixa de publicação fixa */
+    #post-box {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: #fff;
+      border-top: 1px solid #ddd;
+      box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+      padding: 20px;
+      z-index: 100;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    #post-box h2 {
+      color: #f44336;
+      font-size: 1.2rem;
+      margin-top: 0;
+      margin-bottom: 12px;
+    }
+
+    #post-conteudo {
+      width: 100%;
+      min-height: 70px;
+      border: 1px solid #ddd;
+      border-radius: 7px;
+      padding: 10px;
+      font-size: 1rem;
+      margin-bottom: 12px;
+      resize: vertical;
+      box-sizing: border-box;
+    }
+
+    #post-imagens {
+      margin-bottom: 12px;
+    }
+
+    #btn-publicar {
+      background: #f44336;
+      color: #fff;
+      border: none;
+      border-radius: 7px;
+      padding: 10px 28px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background 0.2s;
+      font-weight: 500;
+    }
+
+    #btn-publicar:hover {
+      background: #d32f2f;
+    }
+
+    #posts {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    .post {
+      background: #fff;
+      border: 1px solid #eee;
+      border-radius: 10px;
+      box-shadow: 0 1px 4px rgba(244, 67, 54, 0.07);
+      padding: 18px 20px 14px 20px;
+      transition: box-shadow 0.2s;
+    }
+
+    .post:hover {
+      box-shadow: 0 4px 16px rgba(244, 67, 54, 0.13);
+    }
+
+    .post-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      /* Para alinhar o botão à direita */
+      gap: 12px;
+      margin-bottom: 6px;
+    }
+
+    .post-header-info {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .post-header strong {
+      color: #f44336;
+      font-size: 1.08rem;
+    }
+
+    .post-header small {
+      color: #888;
+      font-size: 0.93rem;
+    }
+
+    .post p {
+      margin: 10px 0 10px 0;
+      font-size: 1.05rem;
+      color: #333;
+      word-break: break-word;
+    }
+
+    .post-imagens {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 8px;
+    }
+
+    .img-post {
+      max-width: 120px;
+      max-height: 120px;
+      border-radius: 7px;
+      border: 1px solid #eee;
+      object-fit: cover;
+      background: #fafafa;
+      cursor: zoom-in;
+    }
+
+    .btn-excluir {
+      background: none;
+      border: none;
+      color: #aaa;
+      cursor: pointer;
+      font-size: 1.2rem;
+      padding: 5px;
+    }
+
+    .btn-excluir:hover {
+      color: #f44336;
+    }
+
+    #login-msg {
+      color: #f44336;
+      text-align: center;
+      font-size: 1.1rem;
+      margin-bottom: 32px;
+      display: none;
+    }
+    
+    /* === NOVOS ESTILOS PARA O MODAL DE IMAGEM === */
+    .modal {
+        display: none; /* Escondido por padrão */
+        position: fixed;
+        z-index: 1000;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgba(0,0,0,0.85);
+        justify-content: center;
+        align-items: center;
+    }
+    .modal-visivel {
+        display: flex; /* Mostra o modal */
+    }
+    .modal-conteudo {
+        margin: auto;
+        display: block;
+        max-width: 90%;
+        max-height: 90%;
+    }
+    .modal-fechar {
+        position: absolute;
+        top: 15px;
+        right: 35px;
+        color: #f1f1f1;
+        font-size: 40px;
+        font-weight: bold;
+        transition: 0.3s;
+        cursor: pointer;
+    }
+    .modal-fechar:hover, .modal-fechar:focus {
+        color: #bbb;
+        text-decoration: none;
+    }
+
+    @media (max-width: 800px) {
+      #comunidade {
+        padding: 10px;
+        margin: 10px auto;
+      }
+
+      .post {
+        padding: 12px 8px;
+      }
+
+      .img-post {
+        max-width: 90px;
+        max-height: 90px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <main id="comunidade">
+    <h1>Comunidade</h1>
+    <div id="login-msg">Faça login para publicar na comunidade.</div>
+    <section id="posts"></section>
+  </main>
+
+  <section id="post-box" style="display: none;">
+    <h2>Escreva sua publicação</h2>
+    <textarea id="post-conteudo" maxlength="500" placeholder="Escreva algo (máx. 500 caracteres)..."></textarea>
+    <input type="file" id="post-imagens" multiple accept="image/*">
+    <button id="btn-publicar">Publicar</button>
+  </section>
+
+  <div id="modal-imagem" class="modal">
+    <span class="modal-fechar">&times;</span>
+    <img class="modal-conteudo" id="img-modal">
+  </div>
+
+
+  <script type="module">
+    import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm';
+
+    // === Conexão Supabase ===
+    const SUPABASE_URL = "https://zyyrmedbihwyxmhgudvz.supabase.co";
+    // Lembre-se de colocar sua chave 'anon' pública correta aqui
+    const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inp5eXJtZWRiaWh3eXhtaGd1ZHZ6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTU5ODYxMjgsImV4cCI6MjA3MTU2MjEyOH0.RZnBj4wjNbE3BsX15HW_hQZPncJp21Ns_3S29proWnA";
+    const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
+
+    let currentUser = null;
+
+    // === NOVAS VARIÁVEIS E FUNÇÕES PARA O MODAL ===
+    const modal = document.getElementById("modal-imagem");
+    const modalImg = document.getElementById("img-modal");
+    
+    function abrirModal(url) {
+      modal.classList.add('modal-visivel');
+      modalImg.src = url;
+    }
+
+    function fecharModal() {
+      modal.classList.remove('modal-visivel');
+    }
+
+    // === Carregar posts ===
+    async function carregarPosts() {
+      const { data, error } = await supabase
+        .from('posts')
+        .select(`
+          id,
+          conteudo,
+          imagens,
+          criado_em,
+          usuario_id, 
+          usuarios!posts_usuario_id_fkey (
+            nome
+          )
+        `)
+        .order('criado_em', { ascending: false });
+
+      if (error) {
+        console.error("Erro ao carregar posts:", error);
+        return;
+      }
+
+      const container = document.getElementById("posts");
+      container.innerHTML = ""; // Limpa os posts antigos
+
+      if (!data) return;
+
+      data.forEach(post => {
+        const div = document.createElement("div");
+        div.classList.add("post");
+
+        const isOwner = currentUser && post.usuario_id === currentUser.id;
+
+        div.innerHTML = `
+          <div class="post-header">
+            <div class="post-header-info">
+              <strong>${post.usuarios?.nome || "Usuário Anônimo"}</strong>
+              <small>${new Date(post.criado_em).toLocaleString()}</small>
+            </div>
+            ${isOwner ? `<button class="btn-excluir" data-id="${post.id}">✖</button>` : ''}
+          </div>
+          <p>${post.conteudo}</p>
+          <div class="post-imagens">
+            ${(post.imagens || []).map(url => `<img src="${url}" class="img-post" alt="Imagem do post">`).join('')}
+          </div>
+        `;
+        container.appendChild(div);
+      });
+    }
+
+    // === Excluir Post ===
+    async function excluirPost(postId) {
+      if (!confirm("Tem certeza que deseja excluir este post?")) return;
+
+      const { error } = await supabase
+        .from('posts')
+        .delete()
+        .eq('id', postId);
+
+      if (error) {
+        console.error("Erro ao excluir post:", error);
+        alert("Não foi possível excluir o post.");
+      } else {
+        await carregarPosts();
+      }
+    }
+
+    // === Verificar login e controlar visibilidade ===
+    async function verificarLogin() {
+      const { data: { session } } = await supabase.auth.getSession();
+      const postBox = document.getElementById("post-box");
+      const loginMsg = document.getElementById("login-msg");
+
+      if (session && session.user) {
+        currentUser = session.user;
+        postBox.style.display = "block";
+        loginMsg.style.display = "none";
+      } else {
+        currentUser = null;
+        postBox.style.display = "none";
+        loginMsg.style.display = "block";
+      }
+    }
+
+    // === Publicar novo post ===
+    async function publicarPost() {
+      if (!currentUser) return alert("Você precisa estar logado para publicar.");
+
+      const conteudo = document.getElementById("post-conteudo").value.trim();
+      const inputImagens = document.getElementById("post-imagens");
+      const arquivos = Array.from(inputImagens.files);
+
+      if (!conteudo && arquivos.length === 0) return alert("Escreva algo ou envie uma imagem.");
+      if (arquivos.length > 3) return alert("Só é permitido enviar até 3 imagens.");
+
+      const btnPublicar = document.getElementById("btn-publicar");
+      btnPublicar.disabled = true;
+      btnPublicar.textContent = "Publicando...";
+
+      try {
+        let urlsImagens = [];
+        for (const arquivo of arquivos) {
+          const nomeArquivo = `${currentUser.id}/${Date.now()}_${arquivo.name}`;
+          const { error: uploadError } = await supabase.storage
+            .from('comunidade-imagens') // ATENÇÃO: Verifique se este é o nome do seu bucket
+            .upload(nomeArquivo, arquivo);
+
+          if (uploadError) throw uploadError;
+
+          const { data: urlData } = supabase.storage
+            .from('comunidade-imagens')
+            .getPublicUrl(nomeArquivo);
+
+          urlsImagens.push(urlData.publicUrl);
+        }
+
+        const { error: insertError } = await supabase
+          .from('posts')
+          .insert({
+            usuario_id: currentUser.id,
+            conteudo,
+            imagens: urlsImagens
+          });
+
+        if (insertError) throw insertError;
+
+        document.getElementById("post-conteudo").value = "";
+        inputImagens.value = "";
+        await carregarPosts();
+
+      } catch (error) {
+        console.error("Erro ao publicar:", error);
+        alert(`Não foi possível publicar. Motivo: ${error.message}`);
+      } finally {
+        btnPublicar.disabled = false;
+        btnPublicar.textContent = "Publicar";
+      }
+    }
+
+    // === Event Listeners ===
+    document.getElementById("btn-publicar").addEventListener("click", publicarPost);
+
+    // Listener de eventos para a área de posts (excluir e abrir imagem)
+    document.getElementById("posts").addEventListener("click", (e) => {
+        if (e.target && e.target.classList.contains('btn-excluir')) {
+            const postId = e.target.getAttribute('data-id');
+            excluirPost(postId);
+        }
+        if (e.target && e.target.classList.contains('img-post')) {
+            abrirModal(e.target.src);
+        }
+    });
+
+    // Listeners para fechar o modal
+    document.querySelector('.modal-fechar').addEventListener('click', fecharModal);
+    modal.addEventListener('click', (e) => {
+      // Fecha só se clicar no fundo (o próprio modal)
+      if (e.target.id === 'modal-imagem') {
+        fecharModal();
+      }
+    });
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && modal.classList.contains('modal-visivel')) {
+        fecharModal();
+      }
+    });
+
+
+    // === Inicialização ===
+    document.addEventListener("DOMContentLoaded", async () => {
+      await verificarLogin();
+      await carregarPosts();
+    });
+
+  </script>
+</body>
+
+</html>

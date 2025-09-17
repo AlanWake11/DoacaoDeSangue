@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+
+<html lang="pt-br">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Como Doar - Guia + Sangue</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="css/style.css" rel="stylesheet" />
+</head>
+
+<body onload="saudacaoUsuario()">
+    <div style="height: 100px;"></div><button onclick="history.back()"
+        style="display: block; margin: 120px auto 30px auto; padding: 10px 20px; font-size: 16px; background-color: #f44336; color: white; border: none; border-radius: 5px; cursor: pointer;"><span>🩸
+        </span>Voltar para a anterior</button>
+    <header style="position: fixed; top: 0; width: 100%; z-index: 999; background-color: white;">
+        <img alt="Logo Guia + Sangue" class="logo" src="images/logo_guia_mais_sangue.png" />
+        <h1>Guia + Sangue</h1>
+    </header>
+    <main class="container">
+        <h2 class="text-center">Pré-requisitos para Doação</h2>
+        <form class="mt-4" role="form">
+            <div class="form-check">
+                <input class="form-check-input" id="c1" type="checkbox" />
+                <label class="form-check-label" for="c1">Ter entre 16 e 69 anos</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" id="c2" type="checkbox" />
+                <label class="form-check-label" for="c2">Pesar mais de 50kg</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" id="c3" type="checkbox" />
+                <label class="form-check-label" for="c3">Estar em boas condições de saúde</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" id="c4" type="checkbox" />
+                <label class="form-check-label" for="c4">Estar descansado e alimentado</label>
+            </div>
+            <button class="btn btn-success mt-3" onclick="validarCheckin()" type="button">Fazer Check-in</button>
+        </form>
+        <div aria-live="polite" id="mensagem-erro"></div>
+    </main>
+    <footer class="mt-5">
+        <p>© 2025 Guia + Sangue. Todos os direitos reservados.</p>
+    </footer>
+    <script src="js/script.js"></script>
+</body>
+
+</html>
