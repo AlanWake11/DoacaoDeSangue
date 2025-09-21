@@ -1,31 +1,36 @@
-
 <!DOCTYPE html>
 
 <html lang="pt-br">
+
 <head>
-<meta charset="utf-8"/>
-<title>Hospitais SUS em Sorocaba</title>
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"/>
-<style>
+  <meta charset="utf-8" />
+  <title>Hospitais SUS em Sorocaba</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <style>
     body {
-  font-family: 'Segoe UI', sans-serif;
-  padding-bottom: 40px;
+      font-family: 'Segoe UI', sans-serif;
+      padding-bottom: 40px;
       background-color: #f5f5f5;
     }
+
     .navbar {
       background-color: #ffffff;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     }
-    .navbar-brand, .nav-link {
+
+    .navbar-brand,
+    .nav-link {
       color: black !important;
     }
+
     .container {
       background: white;
       padding: 30px;
       margin-top: 40px;
       border-radius: 10px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     }
+
     .status-box {
       display: inline-block;
       width: 15px;
@@ -33,67 +38,67 @@
       border-radius: 3px;
       margin-right: 10px;
     }
-    .status-verde { background-color: green; }
-    .status-amarelo { background-color: gold; }
-    .status-vermelho { background-color: red; }
+
+    .status-verde {
+      background-color: green;
+    }
+
+    .status-amarelo {
+      background-color: gold;
+    }
+
+    .status-vermelho {
+      background-color: red;
+    }
+
     .hospital-info {
       font-size: 0.9rem;
       margin-left: 25px;
     }
+
     #searchInput {
       margin-bottom: 20px;
     }
   </style>
 </head>
-<body>
-<nav class="navbar navbar-expand-lg navbar-dark" style="background-color: white;"> <!-- Barra de titulo de navegação -->
-<div class="container-fluid">
-<a class="navbar-brand d-flex align-items-center gap-2" href="index.html"> 
-  <img alt="Logo Guia + Sangue" class="logo" src="images/logo_guia_mais_sangue.png" style="width: 100px ;"/></a>
-  
-  <div class="navbar-brand" id="navbarNav">
-<ul class="navbar-nav"> 
-<li class="nav-item"><a class="nav-link" href="index.html">Início</a></li>
-<li class="nav-item"><a class="nav-link" href="cadastrar.html">Cadastrar</a></li>
-<li class="nav-item"><a class="nav-link" href="login.html">Login</a></li>
-<li class="nav-item"><a class="nav-link" href="checkin.html">Check-in de Doação</a></li>
-</ul>
-</div>
-</div>
-</nav>
 
-<div class="container">
-<h2 class="mb-4 text-center text-danger">Hospitais do SUS em Sorocaba</h2>
-<input class="form-control" id="searchInput" placeholder="Buscar hospital por nome..." type="text"/>
-<ul class="list-group" id="hospitalList">
-<li class="list-group-item">
-<span class="status-box status-verde"></span>
-        Santa Casa de Misericórdia de Sorocaba    
+<body>
+  <div id="navbar"></div>
+
+  <div class="container">
+    <h2 class="mb-4 text-center text-danger">Hospitais do SUS em Sorocaba</h2>
+    <input class="form-control" id="searchInput" placeholder="Buscar hospital por nome..." type="text" />
+    <ul class="list-group" id="hospitalList">
+      <li class="list-group-item">
+        <span class="status-box status-verde"></span>
+        Santa Casa de Misericórdia de Sorocaba
       </li>
-<li class="list-group-item">
-<span class="status-box status-vermelho"></span>
-        Hospital Santa Lucinda 
+      <li class="list-group-item">
+        <span class="status-box status-vermelho"></span>
+        Hospital Santa Lucinda
       </li>
-<li class="list-group-item">
-<span class="status-box status-amarelo"></span>
-        Hospital Regional de Sorocaba  
+      <li class="list-group-item">
+        <span class="status-box status-amarelo"></span>
+        Hospital Regional de Sorocaba
       </li>
-<li class="list-group-item">
-<span class="status-box status-vermelho"></span>
+      <li class="list-group-item">
+        <span class="status-box status-vermelho"></span>
         Hospital Regional II
       </li>
-<li class="list-group-item">
-<span class="status-box status-verde"></span>
+      <li class="list-group-item">
+        <span class="status-box status-verde"></span>
         Hospital Leonor Mendes de Barros
       </li>
-</ul>
-</div>
-<button onclick="document.location='index.html'" style="display: block; margin: 120px auto 30px auto; padding: 10px 20px; font-size: 16px; background-color: #f44336; color: white; border: none; border-radius: 5px; cursor: pointer;"><span>🩸 </span>Voltar para o inicio</button>
+    </ul>
+  </div>
+  <button onclick="document.location='index.html'"
+    style="display: block; margin: 120px auto 30px auto; padding: 10px 20px; font-size: 16px; background-color: #f44336; color: white; border: none; border-radius: 5px; cursor: pointer;"><span>🩸
+    </span>Voltar para o inicio</button>
 
-<script>
+  <script>
     const searchInput = document.getElementById("searchInput");
     const hospitalList = document.getElementById("hospitalList").getElementsByTagName("li");
-    searchInput.addEventListener("keyup", function() {
+    searchInput.addEventListener("keyup", function () {
       const filter = this.value.toLowerCase();
       Array.from(hospitalList).forEach(item => {
         const name = item.textContent.toLowerCase();
@@ -101,65 +106,92 @@
       });
     });
   </script>
-<div class="row mb-4 align-items-center border rounded p-3 bg-white shadow-sm">
-<div class="col-md-5">
-<iframe allowfullscreen="" height="200" loading="lazy" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3656.38705862017!2d-47.45918038502001!3d-23.58814506838767!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94c5fdc29400e54f%3A0xb3b42e79856a8885!2sSanta%20Casa%20de%20Miseric%C3%B3rdia%20de%20Sorocaba!5e0!3m2!1spt-BR!2sbr!4v1616161616161!5m2!1spt-BR!2sbr" style="border:0;" width="100%"></iframe>
-</div>
-<div class="col-md-7">
-<h5>Santa Casa de Misericórdia de Sorocaba</h5>
-<p class="mb-1">Endereço: Av. São Paulo, 750 – Jardim Árvore Grande</p>
-<p class="mb-1">E-mail: <a href="mailto:santacasa@sorocaba.sp.gov.br">santacasa@sorocaba.sp.gov.br</a></p>
-<p class="mb-1">Telefone: (15) 3333-1111</p>
-<a class="btn btn-outline-danger btn-sm mt-2" href="https://www.google.com/maps/place/Santa+Casa+de+Miseric%C3%B3rdia+de+Sorocaba" target="_blank">Abrir no GPS</a>
-</div>
-</div>
-<div class="row mb-4 align-items-center border rounded p-3 bg-white shadow-sm">
-<div class="col-md-5">
-<iframe allowfullscreen="" height="200" loading="lazy" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3656.3157311458494!2d-47.45812312479659!3d-23.59047777874782!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94c5fdc2021f2c2b%3A0xcdf95a2dc86a7fd0!2sHospital%20Santa%20Lucinda!5e0!3m2!1spt-BR!2sbr!4v1616161616162!5m2!1spt-BR!2sbr" style="border:0;" width="100%"></iframe>
-</div>
-<div class="col-md-7">
-<h5>Hospital Santa Lucinda</h5>
-<p class="mb-1">Endereço: Rua Claudio Manuel da Costa, 57 – Jardim Vergueiro</p>
-<p class="mb-1">E-mail: <a href="mailto:lucinda@sorocaba.sp.gov.br">lucinda@sorocaba.sp.gov.br</a></p>
-<p class="mb-1">Telefone: (15) 3344-2222</p>
-<a class="btn btn-outline-danger btn-sm mt-2" href="https://www.google.com/maps/place/Hospital+Santa+Lucinda" target="_blank">Abrir no GPS</a>
-</div>
-</div>
-<div class="row mb-4 align-items-center border rounded p-3 bg-white shadow-sm">
-<div class="col-md-5">
-<iframe allowfullscreen="" height="200" loading="lazy" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3656.3192209698413!2d-47.45793472479663!3d-23.590362078747506!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94c5fdc1e03d90e9%3A0x45d092ba7c9f7a84!2sConjunto%20Hospitalar%20de%20Sorocaba!5e0!3m2!1spt-BR!2sbr!4v1616161616163!5m2!1spt-BR!2sbr" style="border:0;" width="100%"></iframe>
-</div>
-<div class="col-md-7">
-<h5>Hospital Regional de Sorocaba</h5>
-<p class="mb-1">Endereço: Rua Claudio Manuel da Costa, 265 – Jardim Vergueiro</p>
-<p class="mb-1">E-mail: <a href="mailto:regional@sorocaba.sp.gov.br">regional@sorocaba.sp.gov.br</a></p>
-<p class="mb-1">Telefone: (15) 3355-3333</p>
-<a class="btn btn-outline-danger btn-sm mt-2" href="https://www.google.com/maps/place/Conjunto+Hospitalar+de+Sorocaba" target="_blank">Abrir no GPS</a>
-</div>
-</div>
-<div class="row mb-4 align-items-center border rounded p-3 bg-white shadow-sm">
-<div class="col-md-5">
-<iframe allowfullscreen="" height="200" loading="lazy" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3656.875325903774!2d-47.478926985020355!3d-23.572483668385122!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94c5fdac2fd0e251%3A0xaad6e84d7ff8c183!2sHospital%20Regional%20de%20Sorocaba%20-%20Unidade%20II!5e0!3m2!1spt-BR!2sbr!4v1616161616164!5m2!1spt-BR!2sbr" style="border:0;" width="100%"></iframe>
-</div>
-<div class="col-md-7">
-<h5>Hospital Regional II</h5>
-<p class="mb-1">Endereço: Rodovia Raposo Tavares, Km 106</p>
-<p class="mb-1">E-mail: <a href="mailto:regional2@sorocaba.sp.gov.br">regional2@sorocaba.sp.gov.br</a></p>
-<p class="mb-1">Telefone: (15) 3366-4444</p>
-<a class="btn btn-outline-danger btn-sm mt-2" href="https://www.google.com/maps/place/Hospital+Regional+de+Sorocaba+-+Unidade+II" target="_blank">Abrir no GPS</a>
-</div>
-</div>
-<div class="row mb-4 align-items-center border rounded p-3 bg-white shadow-sm">
-<div class="col-md-5">
-<iframe allowfullscreen="" height="200" loading="lazy" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3656.2787009409135!2d-47.45639168501953!3d-23.591739968389203!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94c5fdc23fdddf0f%3A0x75df5e17e7a0c03b!2sHospital%20Leonor%20Mendes%20de%20Barros!5e0!3m2!1spt-BR!2sbr!4v1616161616165!5m2!1spt-BR!2sbr" style="border:0;" width="100%"></iframe>
-</div>
-<div class="col-md-7">
-<h5>Hospital Leonor Mendes de Barros</h5>
-<p class="mb-1">Endereço: Av. Comendador Pereira Inácio, 564 – Jardim Vergueiro</p>
-<p class="mb-1">E-mail: <a href="mailto:leonor@sorocaba.sp.gov.br">leonor@sorocaba.sp.gov.br</a></p>
-<p class="mb-1">Telefone: (15) 3377-5555</p>
-<a class="btn btn-outline-danger btn-sm mt-2" href="https://www.google.com/maps/place/Hospital+Leonor+Mendes+de+Barros" target="_blank">Abrir no GPS</a>
-</div>
-</div>
+  <div class="row mb-4 align-items-center border rounded p-3 bg-white shadow-sm">
+    <div class="col-md-5">
+      <iframe allowfullscreen="" height="200" loading="lazy"
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3656.38705862017!2d-47.45918038502001!3d-23.58814506838767!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94c5fdc29400e54f%3A0xb3b42e79856a8885!2sSanta%20Casa%20de%20Miseric%C3%B3rdia%20de%20Sorocaba!5e0!3m2!1spt-BR!2sbr!4v1616161616161!5m2!1spt-BR!2sbr"
+        style="border:0;" width="100%"></iframe>
+    </div>
+    <div class="col-md-7">
+      <h5>Santa Casa de Misericórdia de Sorocaba</h5>
+      <p class="mb-1">Endereço: Av. São Paulo, 750 – Jardim Árvore Grande</p>
+      <p class="mb-1">E-mail: <a href="mailto:santacasa@sorocaba.sp.gov.br">santacasa@sorocaba.sp.gov.br</a></p>
+      <p class="mb-1">Telefone: (15) 3333-1111</p>
+      <a class="btn btn-outline-danger btn-sm mt-2"
+        href="https://www.google.com/maps/place/Santa+Casa+de+Miseric%C3%B3rdia+de+Sorocaba" target="_blank">Abrir no
+        GPS</a>
+    </div>
+  </div>
+  <div class="row mb-4 align-items-center border rounded p-3 bg-white shadow-sm">
+    <div class="col-md-5">
+      <iframe allowfullscreen="" height="200" loading="lazy"
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3656.3157311458494!2d-47.45812312479659!3d-23.59047777874782!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94c5fdc2021f2c2b%3A0xcdf95a2dc86a7fd0!2sHospital%20Santa%20Lucinda!5e0!3m2!1spt-BR!2sbr!4v1616161616162!5m2!1spt-BR!2sbr"
+        style="border:0;" width="100%"></iframe>
+    </div>
+    <div class="col-md-7">
+      <h5>Hospital Santa Lucinda</h5>
+      <p class="mb-1">Endereço: Rua Claudio Manuel da Costa, 57 – Jardim Vergueiro</p>
+      <p class="mb-1">E-mail: <a href="mailto:lucinda@sorocaba.sp.gov.br">lucinda@sorocaba.sp.gov.br</a></p>
+      <p class="mb-1">Telefone: (15) 3344-2222</p>
+      <a class="btn btn-outline-danger btn-sm mt-2" href="https://www.google.com/maps/place/Hospital+Santa+Lucinda"
+        target="_blank">Abrir no GPS</a>
+    </div>
+  </div>
+  <div class="row mb-4 align-items-center border rounded p-3 bg-white shadow-sm">
+    <div class="col-md-5">
+      <iframe allowfullscreen="" height="200" loading="lazy"
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3656.3192209698413!2d-47.45793472479663!3d-23.590362078747506!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94c5fdc1e03d90e9%3A0x45d092ba7c9f7a84!2sConjunto%20Hospitalar%20de%20Sorocaba!5e0!3m2!1spt-BR!2sbr!4v1616161616163!5m2!1spt-BR!2sbr"
+        style="border:0;" width="100%"></iframe>
+    </div>
+    <div class="col-md-7">
+      <h5>Hospital Regional de Sorocaba</h5>
+      <p class="mb-1">Endereço: Rua Claudio Manuel da Costa, 265 – Jardim Vergueiro</p>
+      <p class="mb-1">E-mail: <a href="mailto:regional@sorocaba.sp.gov.br">regional@sorocaba.sp.gov.br</a></p>
+      <p class="mb-1">Telefone: (15) 3355-3333</p>
+      <a class="btn btn-outline-danger btn-sm mt-2"
+        href="https://www.google.com/maps/place/Conjunto+Hospitalar+de+Sorocaba" target="_blank">Abrir no GPS</a>
+    </div>
+  </div>
+  <div class="row mb-4 align-items-center border rounded p-3 bg-white shadow-sm">
+    <div class="col-md-5">
+      <iframe allowfullscreen="" height="200" loading="lazy"
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3656.875325903774!2d-47.478926985020355!3d-23.572483668385122!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94c5fdac2fd0e251%3A0xaad6e84d7ff8c183!2sHospital%20Regional%20de%20Sorocaba%20-%20Unidade%20II!5e0!3m2!1spt-BR!2sbr!4v1616161616164!5m2!1spt-BR!2sbr"
+        style="border:0;" width="100%"></iframe>
+    </div>
+    <div class="col-md-7">
+      <h5>Hospital Regional II</h5>
+      <p class="mb-1">Endereço: Rodovia Raposo Tavares, Km 106</p>
+      <p class="mb-1">E-mail: <a href="mailto:regional2@sorocaba.sp.gov.br">regional2@sorocaba.sp.gov.br</a></p>
+      <p class="mb-1">Telefone: (15) 3366-4444</p>
+      <a class="btn btn-outline-danger btn-sm mt-2"
+        href="https://www.google.com/maps/place/Hospital+Regional+de+Sorocaba+-+Unidade+II" target="_blank">Abrir no
+        GPS</a>
+    </div>
+  </div>
+  <div class="row mb-4 align-items-center border rounded p-3 bg-white shadow-sm">
+    <div class="col-md-5">
+      <iframe allowfullscreen="" height="200" loading="lazy"
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3656.2787009409135!2d-47.45639168501953!3d-23.591739968389203!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94c5fdc23fdddf0f%3A0x75df5e17e7a0c03b!2sHospital%20Leonor%20Mendes%20de%20Barros!5e0!3m2!1spt-BR!2sbr!4v1616161616165!5m2!1spt-BR!2sbr"
+        style="border:0;" width="100%"></iframe>
+    </div>
+    <div class="col-md-7">
+      <h5>Hospital Leonor Mendes de Barros</h5>
+      <p class="mb-1">Endereço: Av. Comendador Pereira Inácio, 564 – Jardim Vergueiro</p>
+      <p class="mb-1">E-mail: <a href="mailto:leonor@sorocaba.sp.gov.br">leonor@sorocaba.sp.gov.br</a></p>
+      <p class="mb-1">Telefone: (15) 3377-5555</p>
+      <a class="btn btn-outline-danger btn-sm mt-2"
+        href="https://www.google.com/maps/place/Hospital+Leonor+Mendes+de+Barros" target="_blank">Abrir no GPS</a>
+    </div>
+  </div>
 </body>
+
+<script>
+  async function loadNavbar() {
+      const response = await fetch("navbar.html");
+      const navbarHtml = await response.text();
+      document.getElementById("navbar").innerHTML = navbarHtml;
+    }
+    loadNavbar();
+</script>
+
 </html>
