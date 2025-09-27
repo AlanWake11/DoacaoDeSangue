@@ -4,6 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <title>Comunidade - Doação de Sangue</title>
+  <script type="module" src="js/navbar.js"></script>
   <link rel="stylesheet" href="style.css">
   <style>
     body {
@@ -234,6 +235,8 @@
 
 <body>
 
+  <div id="navbar"></div>
+
   <main id="comunidade">
     <h1>Comunidade</h1>
     <div id="login-msg">Faça login para publicar na comunidade.</div>
@@ -449,6 +452,14 @@
       await verificarLogin();
       await carregarPosts();
     });
+
+
+    async function loadNavbar() {
+      const response = await fetch("navbar.html");
+      const navbarHtml = await response.text();
+      document.getElementById("navbar").innerHTML = navbarHtml;
+    }
+    loadNavbar();
 
   </script>
 </body>
