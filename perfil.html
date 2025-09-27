@@ -1,88 +1,103 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <style>
-        *{
-            margin: 0;
-            padding: 0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif    ;
-        }
-        main{
-            box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
-            border-radius: 10px;
-            min-width: 25%;
-            max-width: 29%;
-            margin: auto;
-            text-align: center;
-            align-items: center;
-            padding: 10px;    
-            margin-top:50px; 
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script type="module" src="js/navbar.js"></script>
+  <script type="module">
+    import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 
-        main h1{
-            color: #d32f2f
-        }
+    const SUPABASE_URL = "https://zyyrmedbihwyxmhgudvz.supabase.co";
+    const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inp5eXJtZWRiaWh3eXhtaGd1ZHZ6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTU5ODYxMjgsImV4cCI6MjA3MTU2MjEyOH0.RZnBj4wjNbE3BsX15HW_hQZPncJp21Ns_3S29proWnA"; // sua chave
+    const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
 
-        .infoUsuario{
-            background-color: rgb(218, 216, 216);
-            margin-top: 20px;
-            border-radius: 5px;
-            text-align: left;
-        }
-        
-        .infoUsuario-item{
-            padding: 10px;
-        }
+    // carregar navbar
+    async function loadNavbar() {
+      const response = await fetch("navbar.html");
+      const navbarHtml = await response.text();
+      document.getElementById("navbar").innerHTML = navbarHtml;
+    }
+    loadNavbar();
 
-        .infoUsuario-botoes{
-            display: flex;
-            flex-direction: column;
-            margin-top: 20px;
-        }
+    // logout
+    async function logout() {
+      const { error } = await supabase.auth.signOut();
+      if (error) {
+        console.error("Erro ao sair:", error.message);
+      } else {
+        window.location.href = "index.html"; // volta para home
+      }
+    }
 
-        .infoUsuario-botao{
-            padding: 10px;
-            margin: 5px;
-            border-radius: 5px;
-            background-color: #d32f2f;
-            color: white;
-        }
+    // deixa função disponível no escopo global
+    window.logout = logout;
+  </script>
 
-        .infoUsuario-botao:hover{
-            cursor: pointer;
-            background-color: #d61b1b;
-        }
-
-    </style>
-    
-    <title>Perfil</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    main {
+      box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+      border-radius: 10px;
+      min-width: 25%;
+      max-width: 29%;
+      margin: auto;
+      text-align: center;
+      align-items: center;
+      padding: 10px;
+      margin-top: 50px;
+    }
+    main h1 {
+      color: #d32f2f
+    }
+    .infoUsuario {
+      background-color: rgb(218, 216, 216);
+      margin-top: 20px;
+      border-radius: 5px;
+      text-align: left;
+    }
+    .infoUsuario-item {
+      padding: 10px;
+    }
+    .infoUsuario-botoes {
+      display: flex;
+      flex-direction: column;
+      margin-top: 20px;
+    }
+    .infoUsuario-botao {
+      padding: 10px;
+      margin: 5px;
+      border-radius: 5px;
+      background-color: #d32f2f;
+      color: white;
+    }
+    .infoUsuario-botao:hover {
+      cursor: pointer;
+      background-color: #b71c1c;
+    }
+  </style>
+  
+  <title>Perfil</title>
 </head>
 <body>
-    <div id="navbar"></div>
+  <div id="navbar"></div>
 
-    <main>
-        <h1>Bem-vindo(a)</h1>
-        <img src="../images/profile-circle-icon-256x256-cm91gqm2.png" alt="UserImage" style="height: 100px; margin-top: 20px;">
-        <div class="infoUsuario">
-            <p class="infoUsuario-item">Nome Completo: </p>
-            <p class="infoUsuario-item">Tipo sanguineo: </p>
-            <p class="infoUsuario-item">Email: </p>
-        </div>
-        <div class="infoUsuario-botoes">
-            <button onclick="window.location.href='./documentos.html'" class="infoUsuario-botao">Enviar documentos</button>
-            <button onclick="" class="infoUsuario-botao">Sair</button>
-            <button onclick="" class="infoUsuario-botao">Deletar Conta</button>
-        </div>
-    </main>
-    <script>
-        async function loadNavbar() {
-            const response = await fetch("navbar.html");
-            const navbarHtml = await response.text();
-            document.getElementById("navbar").innerHTML = navbarHtml;
-            }
-            loadNavbar();
-</script>
+  <main>
+    <h1>Bem-vindo(a)</h1>
+    <img src="../images/profile-circle-icon-256x256-cm91gqm2.png" alt="UserImage" style="height: 100px; margin-top: 20px;">
+    <div class="infoUsuario">
+      <p class="infoUsuario-item">Nome Completo: </p>
+      <p class="infoUsuario-item">Tipo sanguíneo: </p>
+      <p class="infoUsuario-item">Email: </p>
+    </div>
+    <div class="infoUsuario-botoes">
+      <button onclick="window.location.href='./documentos.html'" class="infoUsuario-botao">Enviar documentos</button>
+      <button onclick="logout()" class="infoUsuario-botao">Sair</button>
+      <button class="infoUsuario-botao">Deletar Conta</button>
+    </div>
+  </main>
 </body>
 </html>

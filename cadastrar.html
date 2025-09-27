@@ -2,7 +2,7 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
-  <title>Cadastro Supabase</title>
+  <title>Cadastro</title>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <style>
     body {
@@ -68,13 +68,16 @@
       <input type="text" id="cpf" placeholder="CPF" required maxlength="14"><br><br>
       <input type="text" id="rg" placeholder="RG" required maxlength="12"><br><br>
       <button type="submit">Cadastrar</button>
+      <p id="mensagem"></p>
       <br><br>
       <label for="login">Já possui conta?</label> <a href=".\login.html">Logue aqui!</a>
-
     </form>
+    
   </div>
 
-  <p id="mensagem"></p>
+    <button onclick="document.location='index.html'"
+      style="display: block; margin: 120px auto 30px auto; padding: 10px 20px; font-size: 16px; background-color: #f44336; color: white; border: none; border-radius: 5px; cursor: pointer;"><span>🩸
+        </span>Voltar para o inicio</button>
 
   <script>
     // 🔹 Coloque aqui os dados do seu projeto Supabase
@@ -176,8 +179,10 @@ document.getElementById("cadastroForm").addEventListener("submit", async (e) => 
     // 2. A INSERÇÃO MANUAL FOI REMOVIDA DAQUI.
     // O Trigger já fez o trabalho.
 
-    document.getElementById("mensagem").innerText = "✅ Cadastro realizado com sucesso!";
-    document.getElementById("cadastroForm").reset(); // Limpa o formulário
+    // document.getElementById("mensagem").innerText = "✅ Cadastro realizado com sucesso!";
+    // document.getElementById("cadastroForm").reset(); // Limpa o formulário
+
+    window.location.href='./index.html'
 });
   </script>
 </body>
