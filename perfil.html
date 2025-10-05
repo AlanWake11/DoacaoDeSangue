@@ -4,35 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <script type="module" src="js/navbar.js"></script>
-  <script type="module">
-    import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
-
-    const SUPABASE_URL = "https://zyyrmedbihwyxmhgudvz.supabase.co";
-    const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inp5eXJtZWRiaWh3eXhtaGd1ZHZ6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTU5ODYxMjgsImV4cCI6MjA3MTU2MjEyOH0.RZnBj4wjNbE3BsX15HW_hQZPncJp21Ns_3S29proWnA"; // sua chave
-    const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
-
-    // carregar navbar
-    async function loadNavbar() {
-      const response = await fetch("navbar.html");
-      const navbarHtml = await response.text();
-      document.getElementById("navbar").innerHTML = navbarHtml;
-    }
-    loadNavbar();
-
-    // logout
-    async function logout() {
-      const { error } = await supabase.auth.signOut();
-      if (error) {
-        console.error("Erro ao sair:", error.message);
-      } else {
-        window.location.href = "index.html"; // volta para home
-      }
-    }
-
-    // deixa função disponível no escopo global
-    window.logout = logout;
-  </script>
-
+  <link rel="stylesheet" href="./css/navbar.css">
   <style>
     * {
       margin: 0;
@@ -78,13 +50,13 @@
       cursor: pointer;
       background-color: #b71c1c;
     }
-  </style>
-  
+    </style>
+
   <title>Perfil</title>
 </head>
 <body>
   <div id="navbar"></div>
-
+  
   <main>
     <h1>Bem-vindo(a)</h1>
     <img src="../images/profile-circle-icon-256x256-cm91gqm2.png" alt="UserImage" style="height: 100px; margin-top: 20px;">
@@ -99,5 +71,30 @@
       <button class="infoUsuario-botao">Deletar Conta</button>
     </div>
   </main>
+
+  <script type="module">
+    import { supabase } from './js/supabaseClient.js'
+
+    // carregar navbar
+    async function loadNavbar() {
+      const response = await fetch("navbar.html");
+      const navbarHtml = await response.text();
+      document.getElementById("navbar").innerHTML = navbarHtml;
+    }
+    loadNavbar();
+
+    // logout
+    async function logout() {
+      const { error } = await supabase.auth.signOut();
+      if (error) {
+        console.error("Erro ao sair:", error.message);
+      } else {
+        window.location.href = "index.html"; // volta para home
+      }
+    }
+
+    // deixa função disponível no escopo global
+    window.logout = logout;
+  </script>
 </body>
 </html>

@@ -79,11 +79,9 @@
       style="display: block; margin: 120px auto 30px auto; padding: 10px 20px; font-size: 16px; background-color: #f44336; color: white; border: none; border-radius: 5px; cursor: pointer;"><span>🩸
         </span>Voltar para o inicio</button>
 
-  <script>
+  <script type="module">
     // 🔹 Coloque aqui os dados do seu projeto Supabase
-    const SUPABASE_URL = "https://zyyrmedbihwyxmhgudvz.supabase.co";
-    const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inp5eXJtZWRiaWh3eXhtaGd1ZHZ6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTU5ODYxMjgsImV4cCI6MjA3MTU2MjEyOH0.RZnBj4wjNbE3BsX15HW_hQZPncJp21Ns_3S29proWnA";
-    const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+    import { supabase } from './js/supabaseClient.js'
 
     // 🔹 Função para validar CPF
     function validarCPF(cpf) {

@@ -1,3 +1,5 @@
+import { supabase } from "./js/supabaseClient.js";
+
 async function verificarSessao() {
     const { data: { session } } = await supabase.auth.getSession();
 

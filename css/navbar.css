@@ -1,0 +1,118 @@
+:root {
+    --navbar-height: 85px;
+}
+body {
+    /* Garante que o conteúdo não fique atrás do navbar */
+    padding-top: var(--navbar-height);
+    box-sizing: border-box;
+}
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: var(--navbar-height);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 2px solid #d32f2f;
+    z-index: 999;
+    background: darkred;
+    padding: 0 40px;
+    box-sizing: border-box;
+    overflow: hidden;
+    
+}
+nav {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+.nav-item {
+    color: white;
+    text-decoration: none;
+    align-items: center;
+    font-size: 1.1rem;
+    transition: transform 0.2s;
+}
+.nav-item:hover {
+    transform: scale(1.15);
+    text-decoration: overline red;
+    cursor: pointer;
+}
+
+nav button{
+    background-color: white;
+    border-radius: 50%;
+    height: 60px;
+    width: 65px;
+}
+
+nav button:hover{
+    cursor: pointer;
+    background-color: #d32f2f;
+    color: white;
+    transition: 0.2s;
+}
+
+.navbar img {
+    display: block;
+    height: 80px;
+}
+
+/* Botão de menu hamburguer */
+.menu-toggle {
+    display: none;
+    background: none;
+    border: none;
+    font-size: 2.2rem;
+    color: white;
+    margin-left: 16px;
+    cursor: pointer;
+}
+
+/* Responsivo para telas pequenas */
+@media (max-width: 700px) {
+    .navbar {
+        flex-direction: row;
+        padding: 0 12px;
+        height: 65px;
+    }
+    .navbar img {
+        height: 48px;
+    }
+    nav {
+        position: absolute;
+        top: var(--navbar-height);
+        left: 0;
+        right: 0;
+        background: darkred;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0;
+        padding: 0 20px 16px 20px;
+        display: none;
+        z-index: 1000;
+        border-bottom: 2px solid #d32f2f;
+    }
+    nav.show {
+        display: flex;
+    }
+    .nav-item, nav button {
+        width: 100%;
+        text-align: left;
+        margin: 12px 0;
+        font-size: 1.1rem;
+    }
+    .menu-toggle {
+        display: block;
+    }
+}
+
+/* Ajusta altura do navbar em telas pequenas */
+@media (max-width: 700px) {
+    :root {
+        --navbar-height: 65px;
+    }
+}
